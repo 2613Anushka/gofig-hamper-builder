@@ -11,7 +11,7 @@ st.set_page_config(layout="wide")
 st.title("🏱 Gofig Hamper Builder")
 
 # ===== LOAD DATA =====
-@st.cache_data
+@st.cache_data(ttl=300)
 def load_data():
     df_raw = pd.read_csv(CSV_URL)
     df_raw["MRP"] = pd.to_numeric(df_raw["MRP"], errors="coerce")
@@ -289,6 +289,10 @@ with st.sidebar:
     selected_inventory = st.multiselect("Inventory Holding", inventory_options, default=inventory_options)
     selected_status = st.multiselect("Product Status", status_options, default=status_options)
     selected_brands = st.multiselect("Brand Name", brand_options, default=brand_options)
+
+    if st.button("🔄 Refresh Data"):
+        st.cache_data.clear()
+        st.experimental_rerun()
 
     if st.button("🎉 Create Hamper"):
         hamper, total = create_hamper(budget, selected_categories, selected_inventory,
