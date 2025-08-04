@@ -280,7 +280,7 @@ def get_replacement_suggestions(category, current_item, selected_inventory, sele
 # ===== SIDEBAR UI =====
 with st.sidebar:
     st.header("Customize Your Hamper")
-    budget = st.number_input("Set Budget (₹)", min_value=100, max_value=20000, value=1000)
+    budget = st.number_input("Set Budget (₹)", min_value=100, max_value=100000, value=1000)
     box_type = st.radio("Select Box Type", ["Gift Box", "Green Box", "Steal Deal"], key="box_type")
     apply_box_type_defaults(box_type)
     min_days = st.slider("Min Days to Expiry", 0, 365, st.session_state.get("min_days", 30), key="min_days")
